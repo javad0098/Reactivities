@@ -1,12 +1,16 @@
 import React from 'react';
 import { Button, ButtonGroup, Card, Icon, Image } from 'semantic-ui-react';
+import { useStore } from '../../../app/stors/store';
 import { Activity } from './../../../Models/activity';
+import { couldStartTrivia } from 'typescript';
+import LoadingComponent from '../../../app/Layout/LoadingComponent';
 interface props {
-    activity: Activity;
-    cancelSelectActivity: () => void;
-    openForm: (id: string) => void;
+
 }
-export default function ActivityDetails({ activity, cancelSelectActivity, openForm }: props) {
+export default function ActivityDetails() {
+    const { activityStore } = useStore();
+    const { selectedActivity: activity, openForm, cancelSelectedActivity } = activityStore
+    if (!activity) return <LoadingComponent />;
     return (
         <Card fluid>
             <Image src={`/assets/categoryImages/${activity.category}.jpg`} />
@@ -22,7 +26,7 @@ export default function ActivityDetails({ activity, cancelSelectActivity, openFo
             <Card.Content extra>
                 <Button.Group>
                     <Button onClick={() => openForm(activity.id)} basic color='blue' content='Edit'></Button>
-                    <Button onClick={cancelSelectActivity} basic color='grey' content='Cancel'></Button>
+                    <Button onClick={cancelSelectedActivity} basic color='grey' content='Cancel'></Button>
                 </Button.Group>
             </Card.Content>
         </Card>);
