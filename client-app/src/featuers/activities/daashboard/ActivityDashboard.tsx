@@ -1,12 +1,11 @@
-import React, { PureComponent } from 'react';
-import { Grid, List } from 'semantic-ui-react';
-import ts, { couldStartTrivia } from 'typescript';
-import { Activity } from '../../../Models/activity';
+import { useEffect } from 'react';
+import { Grid } from 'semantic-ui-react';
 import ActivityList from './ActivityList';
 import ActivityDetails from './../Detailes/ActiviyDetails';
 import ActivityForm from '../form/ActivityForm';
 import { useStore } from '../../../app/stors/store';
 import { observer } from 'mobx-react-lite';
+import LoadingComponent from '../../../app/Layout/LoadingComponent';
 
 interface props {
 }
@@ -14,6 +13,10 @@ interface props {
 export default observer(function ActivityDashboard() {
     const { activityStore } = useStore();
     const { selectedActivity, editMode } = activityStore
+    useEffect(() => {
+        activityStore.loadActivities()
+    }, [activityStore])
+    if (activityStore.loadingInitial) return <LoadingComponent content='loading activities' />
     return (
         <Grid>
             <Grid.Row>

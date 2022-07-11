@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './app/Layout/styles.css';
+import 'react-toastify/dist/ReactToastify.min.css'
 import App from './app/Layout/App';
 import reportWebVitals from './reportWebVitals';
 import { store, StoreContext } from './app/stors/store';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <StoreContext.Provider value={store}>
+    <BrowserRouter>
     <App />
+    </BrowserRouter>
   </StoreContext.Provider>
 );
 

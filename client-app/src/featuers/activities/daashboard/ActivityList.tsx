@@ -1,10 +1,9 @@
-import React, { SyntheticEvent } from 'react';
+import { SyntheticEvent } from 'react';
 import { Button, Item, Label, Segment } from 'semantic-ui-react';
-import { Activity } from '../../../Models/activity';
 import { useState } from 'react';
 import { useStore } from '../../../app/stors/store';
 import { observer } from 'mobx-react-lite';
-import { loadavg } from 'os';
+import { Link } from 'react-router-dom';
 
 interface props {
 
@@ -31,7 +30,7 @@ export default observer(function ActivityList({ }: props) {
                             <div>{activity.city},{activity.venue}</div>
                         </Item.Description>
                         <Item.Extra>
-                            <Button onClick={() => activityStore.selectActivity(activity.id)} floated='right' content='view' color='blue'></Button>
+                            <Button as={Link} to={`/activities/${activity.id}`} floated='right' content='view' color='blue'></Button>
                             <Button name={activity.id}
                                 onClick={(e) => handleActivityDelete(e, activity.id)}
                                 loading={loading && target == activity.id} floated='right' content='delete' color='red'></Button>
